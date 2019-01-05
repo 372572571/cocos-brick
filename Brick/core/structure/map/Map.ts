@@ -1,8 +1,8 @@
 /*
  * @Author: mikey.zhaopeng 
  * @Date: 2019-01-05 19:18:29 
- * @Last Modified by:   mikey.zhaopeng 
- * @Last Modified time: 2019-01-05 19:18:29 
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2019-01-05 20:40:33
  */
 namespace Brick {
     export class Map {
@@ -56,7 +56,7 @@ namespace Brick {
          */
         public set(key: string | number | Object, value: any): Brick.Map {
             // 如果是对象,并且这个对象没有一个叫_symbol的属性 给这个对象添加一个symbol 并用这个 symbol 作为 key
-            if (typeof key === 'object' && !key[Brick._SYMBOL]) {
+            if (typeof key === Brick.OBJECT && !key[Brick._SYMBOL]) {
                 // 给这个对象添加上symbol
                 key = Brick.AddSymbolByObject(key, Brick._SYMBOL)
                 // 类型添加失败直接返回
@@ -67,7 +67,7 @@ namespace Brick {
             }
             // 如果是普通参数赋值
             if (typeof key === Brick.STRING || typeof key === Brick.NUMBER) {
-                this.map[_SYMBOL] = value
+                this.map[<string | number>key] = value
                 return this
             }
             return this
@@ -129,13 +129,12 @@ namespace Brick {
 
         /**
          * 遍历map
-         *
+         * 注意如果key是symbol()那么不可枚举
          * @param {(value: any, key?: any) => void} callback
          * @param {*} [thisArg]
          * @memberof Map
          */
         public forEach(callback: (value: any, key?: any) => void, thisArg?: any): void {
-            console.log(this.map)
             for (let temp in this.map) {
                 if (thisArg) {
                     callback.apply(thisArg, [this.map[temp], temp])
@@ -143,9 +142,24 @@ namespace Brick {
                     callback(this.map[temp], temp)
                 }
             }
+            let sym = Object.getOwnPropertySymbols(this.map)
+            for (let temp in sym) {
+                if (thisArg) {
+                    callback.apply(thisArg, [this.map[sym[temp]], sym[temp]])
+                } else {
+                    callback(this.map[sym[temp]], sym[temp])
+                }
+            }
         }
+
+        /**
+         * 清空所有键和值
+         *
+         * @memberof Map
+         */
         public clear(): void {
-            throw new Error("Method not implemented.");
+            delete this.map
+            this.map = {}
         }
 
     }

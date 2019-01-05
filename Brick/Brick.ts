@@ -49,9 +49,9 @@ namespace Brick {
         }
         try {
             Object.defineProperty(key, flag, {
-                enumerable: true, // 不可枚举
-                configurable: false, // 不可改变和删除
-                writable: false, // false 不可被改变
+                enumerable: true, // 可枚举
+                configurable: true, // 不可改变和删除
+                writable: true, // false 不可被改变
                 value: Symbol()
             })
         } catch (error) {
