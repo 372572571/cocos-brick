@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        // "module": "commonjs",
+        "lib": [
+            "dom",
+            "es6",
+            "es2015.promise"
+        ],
+        "target": "es6",
+        "experimentalDecorators": true,
+        "outFile": "../assets/Script/GameScript/Brick/namescript.js",
+        "skipLibCheck": true,
+    },
+    "exclude": [
+        "node_modules",
+        "library",
+        "local",
+        "temp",
+        "build",
+        "settings"
+    ],
+    "include": [
+        "Brick"
+    ]
+}
