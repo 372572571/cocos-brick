@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2019-01-05 19:18:29 
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2019-01-05 20:40:33
+ * @Last Modified time: 2019-01-05 21:48:08
  */
 namespace Brick {
     export class Map {
@@ -79,7 +79,7 @@ namespace Brick {
          * @param {(string | number | Object)} key
          * @memberof Map
          */
-        public get<T>(key: string | number | Object): T {
+        public  get<T>(key: string | number | Object): T {
 
             // 对象key取值并且 key[_SYMBOL] 类型等于 _SYMBOL
             if (typeof key === Brick.OBJECT && typeof key[_SYMBOL] === Brick.SYMBOL) {
@@ -129,7 +129,6 @@ namespace Brick {
 
         /**
          * 遍历map
-         * 注意如果key是symbol()那么不可枚举
          * @param {(value: any, key?: any) => void} callback
          * @param {*} [thisArg]
          * @memberof Map
