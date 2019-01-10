@@ -2,7 +2,7 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-10 14:35:18 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-10 14:37:04
+ * @Last Modified time: 2019-01-10 14:51:49
  */
 namespace Brick {
     export enum HTTP_METHOD {
@@ -91,18 +91,17 @@ namespace Brick {
                         reject(response)
                     }
                 }
-                for (let index in this.headers) {
-                    xhr.setRequestHeader(index, this.headers[index]);
-                }
                 switch (method) {
                     // 设置请求信息
                     case HTTP_METHOD.POST:
                         xhr.open(method, url, true);
+                        this.setHeaders(xhr)
                         xhr.send(JSON.stringify(params));
                         break
                     case HTTP_METHOD.GET:
                         let temp: string = this.getParams(params)
                         xhr.open(method, url + temp, true);
+                        this.setHeaders(xhr)
                         xhr.send()
                         break
                     default:
@@ -129,6 +128,13 @@ namespace Brick {
                 }
             }
             return temp
+        }
+
+        private setHeaders(xhr: any) {
+            for (let index in this.headers) {
+                console.log(index, this.headers[index])
+                xhr.setRequestHeader(index, this.headers[index]);
+            }
         }
 
     }
