@@ -13,7 +13,7 @@ namespace Brick {
      */
     export class Pagination {
         /**
-         * pagiation data container.
+         * Pagination data container.
          *
          * @protected
          * @type {Array<any>}
@@ -25,7 +25,7 @@ namespace Brick {
          * one page how many item.
          *
          * @type {number}
-         * @memberof IPagiation
+         * @memberof IPagination
          */
         public one_page_number_item: number = 1
 
@@ -33,7 +33,7 @@ namespace Brick {
          * current displayed page number.
          *
          * @type {number}
-         * @memberof IPagiation
+         * @memberof IPagination
          */
         public current_page: number = 1
 
@@ -42,7 +42,7 @@ namespace Brick {
          * 
          * @readonly
          * @type {number}
-         * @memberof IPagiation
+         * @memberof IPagination
          */
         public get total_page(): number {
             // ceil rounded up .
@@ -56,7 +56,7 @@ namespace Brick {
          * @template T
          * @param {Array<T>} data
          * @returns
-         * @memberof IPagiation
+         * @memberof IPagination
          */
         public setData<T>(data: Array<T>) {
             if (data === null) {
@@ -71,7 +71,7 @@ namespace Brick {
          * the @function total_page() another name
          *
          * @readonly
-         * @memberof IPagiation
+         * @memberof IPagination
          */
         public get length() {
             return this.total_page
@@ -82,7 +82,7 @@ namespace Brick {
          *
          * @template T
          * @returns {Array<T>}
-         * @memberof IPagiation
+         * @memberof IPagination
          */
         public getCurrentPageData<T>(): Array<T> {
             return this.getDataByNumberPage(this.current_page)
@@ -94,7 +94,7 @@ namespace Brick {
          * @template T
          * @param {number} number_page
          * @returns {Array<T>}
-         * @memberof IPagiation
+         * @memberof IPagination
          */
         public getDataByNumberPage<T>(number_page: number): Array<T> {
             if (this.data.length === 0) { return this.data }
