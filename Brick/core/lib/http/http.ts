@@ -2,9 +2,10 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-10 14:35:18 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-10 15:09:35
+ * @Last Modified time: 2019-01-10 15:36:55
  */
 namespace Brick {
+
     export enum HTTP_METHOD {
         POST = 'POST',
         GET = 'GET'
@@ -26,7 +27,7 @@ namespace Brick {
     /**
      * http依赖
      *
-     * @class HttpRely
+     * @class HttpRely http 依赖
      * @implements {IOC_Http}
      */
     class HttpRely implements IOC_Http {
@@ -57,11 +58,11 @@ namespace Brick {
          * 发送
          *
          * @private
-         * @template T
-         * @param {string} url
-         * @param {HTTP_METHOD} method
-         * @param {{ [key: string]: any }} [params]
-         * @returns {Promise<T>}
+         * @template T 类型
+         * @param {string} url 请求的url
+         * @param {HTTP_METHOD} method 请求的类型
+         * @param {{ [key: string]: any }} params 发送的请求参数
+         * @returns {Promise<T>} 返回promise
          * @memberof HttpRely
          */
         private send<T>(url: string, method: HTTP_METHOD, params?: { [key: string]: any }): Promise<T> {
@@ -114,7 +115,7 @@ namespace Brick {
          * 把key val数据解析成 url参数
          *
          * @private
-         * @param {{ [key: string]: any }} params
+         * @param {{ [key: string]: any }} params 需要解析的对象
          * @returns {string}
          * @memberof HttpRely
          */
