@@ -2,7 +2,7 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-10 14:35:18 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-10 14:51:49
+ * @Last Modified time: 2019-01-10 15:09:35
  */
 namespace Brick {
     export enum HTTP_METHOD {
@@ -130,7 +130,14 @@ namespace Brick {
             return temp
         }
 
-        private setHeaders(xhr: any) {
+        /**
+         * 设置头信息
+         *
+         * @private
+         * @param {XMLHttpRequest} xhr
+         * @memberof HttpRely
+         */
+        private setHeaders(xhr: XMLHttpRequest) {
             for (let index in this.headers) {
                 console.log(index, this.headers[index])
                 xhr.setRequestHeader(index, this.headers[index]);
@@ -140,7 +147,7 @@ namespace Brick {
     }
 
     /**
-     * 高层http
+     * http 请求实例
      *
      * @export
      * @class Http
