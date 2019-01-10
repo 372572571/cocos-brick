@@ -37,7 +37,7 @@ namespace Brick {
         /**
          * 执行
          *
-         * @param {() => void} callfunction
+         * @param {() => void} call_function
          * @param {number} interval_time
          * @param {*} [self]
          * @memberof Throttling
