@@ -6,11 +6,12 @@ namespace Brick {
      * @abstract
      * @class BasePresenter
      */
-    export abstract class BasePresenter {
-        protected abstract init<T>(data: any): T
-        protected abstract save<T>(data: any): T
-        protected abstract remove<T>(data: any): T
-        public abstract clear(): void
+    export interface BasePresenter {
+        // map: Brick.Map
+        init<T>(data: any): T
+        save<T>(data: any): T
+        remove<T>(data: any): T
+        clear(): void
     }
 
     /**
@@ -20,7 +21,7 @@ namespace Brick {
      * @class Presenter
      * @extends {BasePresenter}
      */
-    export class Presenter extends BasePresenter {
+    export class Presenter implements BasePresenter {
 
         /**
          * 存放数据的结构
@@ -29,7 +30,7 @@ namespace Brick {
          * @type {Brick.Map}
          * @memberof Presenter
          */
-        protected map: Brick.Map = new Brick.Map()
+        public map: Brick.Map = new Brick.Map()
 
         /**
          * 定义初始化方法
@@ -40,7 +41,7 @@ namespace Brick {
          * @returns {T}
          * @memberof Presenter
          */
-        protected init<T>(data: any): T {
+        public init<T>(data: any): T {
             // throw new Error("Method not implemented.");
             return null
         }
@@ -54,7 +55,7 @@ namespace Brick {
          * @returns {T}
          * @memberof Presenter
          */
-        protected save<T>(data: any): T {
+        public save<T>(data: any): T {
             // throw new Error("Method not implemented.");
             return null
         }
@@ -68,7 +69,7 @@ namespace Brick {
          * @returns {T}
          * @memberof Presenter
          */
-        protected remove<T>(data: any): T {
+        public remove<T>(data: any): T {
             // throw new Error("Method not implemented.");
             return null
         }
@@ -83,5 +84,4 @@ namespace Brick {
         }
 
     }
-
 }

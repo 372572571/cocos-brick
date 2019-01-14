@@ -1,8 +1,8 @@
 /*
  * @Author: mikey.zhaopeng 
  * @Date: 2019-01-05 19:14:24 
- * @Last Modified by:   mikey.zhaopeng 
- * @Last Modified time: 2019-01-05 19:14:24 
+ * @Last Modified by: LiuYongLong
+ * @Last Modified time: 2019-01-14 17:43:46
  */
 namespace Brick {
 
@@ -58,7 +58,7 @@ namespace Brick {
             // 不支持Symbol
             throw new Error(`Symbol ont function ${error}`)
         }
-    
+
         return <T>key
     }
 }

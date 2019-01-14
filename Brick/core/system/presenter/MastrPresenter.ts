@@ -29,7 +29,7 @@ namespace Brick {
      *
      * @class _Presenter
      */
-    class MasterPresenter implements IMasterPresenter {
+    export class MasterPresenter implements IMasterPresenter {
 
         /**
          * 依赖
