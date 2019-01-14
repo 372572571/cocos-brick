@@ -1,8 +1,8 @@
 /*
  * @Author: mikey.zhaopeng 
  * @Date: 2019-01-05 19:18:29 
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2019-01-05 21:48:08
+ * @Last Modified by: LiuYongLong
+ * @Last Modified time: 2019-01-14 14:37:49
  */
 namespace Brick {
     export class Map {
@@ -79,15 +79,15 @@ namespace Brick {
          * @param {(string | number | Object)} key
          * @memberof Map
          */
-        public  get<T>(key: string | number | Object): T {
+        public get<T>(key: string | number | Object): T {
 
             // 对象key取值并且 key[_SYMBOL] 类型等于 _SYMBOL
             if (typeof key === Brick.OBJECT && typeof key[_SYMBOL] === Brick.SYMBOL) {
-                return this.map[key[_SYMBOL]]
+                return <T>this.map[key[_SYMBOL]]
             }
             // 如果key 是字符串或者数字
             if (typeof key === Brick.STRING || typeof key === Brick.NUMBER) {
-                return this.map[<any>key]
+                return <T>this.map[<any>key]
             }
             return null
         }
