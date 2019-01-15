@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2019-01-05 19:14:24 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-14 17:43:46
+ * @Last Modified time: 2019-01-15 10:56:38
  */
 namespace Brick {
 
@@ -49,9 +49,9 @@ namespace Brick {
         }
         try {
             Object.defineProperty(key, flag, {
-                enumerable: true, // 可枚举
-                configurable: true, // 不可改变和删除
-                writable: true, // false 不可被改变
+                enumerable: false, // 可枚举
+                configurable: false, // 不可改变和删除
+                writable: false, // false 不可被改变
                 value: Symbol()
             })
         } catch (error) {
@@ -60,5 +60,24 @@ namespace Brick {
         }
 
         return <T>key
+    }
+
+    /**
+     * 注册或者获取注册过的控制者
+     *
+     * @export
+     * @template T
+     * @param {(Brick.Presenter | string)} p
+     * @returns {T}
+     */
+    export function use<T>(p: Brick.Presenter | string): T {
+        switch (typeof p) {
+            case Brick.STRING:
+                return Brick.GAME.getPresenter(<string>p)
+            case Brick.OBJECT:
+                return Brick.GAME.use(<Brick.Presenter>p)
+            default:
+                return null
+        }
     }
 }

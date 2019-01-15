@@ -1,3 +1,9 @@
+/*
+ * @Author: LiuYongLong 
+ * @Date: 2019-01-15 10:17:05 
+ * @Last Modified by: LiuYongLong
+ * @Last Modified time: 2019-01-15 10:28:01
+ */
 namespace Brick {
     /**
      * 主控制者接口
@@ -11,16 +17,6 @@ namespace Brick {
         RemovePresenter(name: string): any
         // 获取一个控制者
         GetPresenterByName<T>(name: string): T
-    }
-
-    /**
-     * 基础主控制者依赖接口
-     *
-     * @interface IOCMasterPresenter
-     * @extends {IMasterPresenter}
-     */
-    export interface IOCMasterPresenter extends IMasterPresenter {
-
     }
 
     /**
@@ -38,9 +34,9 @@ namespace Brick {
          * @type {IOCMasterPresenter}
          * @memberof _Presenter
          */
-        private master: IOCMasterPresenter
+        private master: IMasterPresenter
 
-        constructor(master: IOCMasterPresenter) {
+        constructor(master: IMasterPresenter) {
             if (!master) { throw new Error('master of null.') }
             this.master = master
         }

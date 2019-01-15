@@ -4,8 +4,9 @@
         "lib": [
             "dom",
             "es6",
+            "es2015.promise"
         ],
-        "target": "es6",
+        "target": "es5",
         "experimentalDecorators": true,
         "outFile": "../assets/Script/GameScript/Brick/namescript.js",
         "skipLibCheck": true,

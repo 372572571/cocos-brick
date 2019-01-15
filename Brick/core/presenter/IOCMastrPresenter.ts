@@ -1,3 +1,9 @@
+/*
+ * @Author: LiuYongLong 
+ * @Date: 2019-01-15 10:17:00 
+ * @Last Modified by: LiuYongLong
+ * @Last Modified time: 2019-01-15 10:34:10
+ */
 namespace Brick {
     /**
      * 基础主控制者依赖
@@ -31,6 +37,11 @@ namespace Brick {
          */
         AddPresenter<T>(presenter: Presenter): T {
             this.init() // 判断存储结构是否存在
+
+            for (let index in new Brick.Presenter()) {
+                if (!presenter[index])
+                    throw new Error(`${index} not null`)
+            }
             if (this.map.get(presenter.constructor.name)) {
                 // 如果已经存在这个类型的控制者
                 return this.map.get(presenter.constructor.name)
