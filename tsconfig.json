@@ -8,7 +8,7 @@
         ],
         "target": "es5",
         "experimentalDecorators": true,
-        "outFile": "../assets/Script/GameScript/Brick/namescript.js",
+        "outFile": "../assets/Script/GameScript/Brick/brickscript.js",
         "skipLibCheck": true,
     },
     "exclude": [
