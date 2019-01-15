@@ -19,7 +19,7 @@ var Brick;
              */
             this.map = null;
             this.map = {};
-        }
+        }  
         Object.defineProperty(Map.prototype, "length", {
             /**
              * 返回map长度
