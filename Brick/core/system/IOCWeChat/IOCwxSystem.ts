@@ -2,7 +2,7 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-16 16:58:25 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-16 20:21:49
+ * @Last Modified time: 2019-01-16 20:36:04
  */
 namespace Brick {
 
@@ -87,14 +87,15 @@ namespace Brick {
             height: 20,
         }
         try {
-            let rect = node.getBoundingBoxToWorld()
-            style.width = rect.xMax - rect.xMin
-            style.height = rect.yMax - rect.yMin
             let sysInfo: wx.GetSystemInfoResult = wx.getSystemInfoSync()
+            let gl = sysInfo.screenHeight / Canvas.convertToWorldSpaceAR(Canvas.position).y
+            let kl = sysInfo.screenWidth / Canvas.convertToWorldSpaceAR(Canvas.position).x
+            style.width = node.width * kl; // 宽比例换算
+            style.height = node.height * gl; // 高比例换算
             let y = Canvas.convertToWorldSpaceAR(Canvas.position).y - (node.parent.convertToWorldSpaceAR(node.position).y + (node.height / 2))
             let top_b = y / Canvas.convertToWorldSpaceAR(Canvas.position).y
             style.top = (top_b * sysInfo.screenHeight)
-            let x =(node.parent.convertToWorldSpaceAR(node.position).x - (node.width / 2))
+            let x = (node.parent.convertToWorldSpaceAR(node.position).x - (node.width / 2))
             let left_b = x / Canvas.convertToWorldSpaceAR(Canvas.position).x
             style.left = left_b * sysInfo.screenWidth
             return style
