@@ -1,3 +1,9 @@
+/*
+ * @Author: LiuYongLong 
+ * @Date: 2019-01-16 16:42:30 
+ * @Last Modified by: LiuYongLong
+ * @Last Modified time: 2019-01-16 16:42:51
+ */
 namespace Brick {
 
     interface IGame {
@@ -6,8 +12,8 @@ namespace Brick {
     }
 
     /**
-     * 全局唯一
-     *
+     * 全局唯一 
+     * 存放一些重复使用的对象
      * @class _Game
      * @implements {IGame}
      */
