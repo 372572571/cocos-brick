@@ -2,7 +2,7 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-16 16:58:25 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-16 20:36:04
+ * @Last Modified time: 2019-01-17 10:41:15
  */
 namespace Brick {
 
@@ -13,6 +13,40 @@ namespace Brick {
      * @class IOCwxSystem
      */
     export class IOCwxSystem implements IOCSystem {
+
+        /**
+         * 设置缓存键值对
+         *
+         * @template T
+         * @param {string} key
+         * @param {T} value
+         * @memberof IOCwxSystem
+         */
+        StorageSet<T>(key: string, value: T) {
+            try {
+                wx.setStorageSync(key, value)
+            } catch (e) {
+                cc.warn(e)
+                return null
+            }
+        }
+
+        /**
+         * 获取缓存键值对
+         *
+         * @template T
+         * @param {string} key
+         * @returns {T}
+         * @memberof IOCwxSystem
+         */
+        StorageGet<T>(key: string): T {
+            try {
+                return <any>wx.getSystemInfoSync()
+            } catch (e) {
+                cc.warn(e)
+                return null
+            }
+        }
 
         /**
          * 获取系统
@@ -46,10 +80,17 @@ namespace Brick {
             })
         }
 
+        /**
+         * 获取用户信息(微信特殊为创建一个button并传入到回调中)
+         *
+         * @param {<T>(data: T) => void} call
+         * @param {cc.Node} node
+         * @param {cc.Node} canvas
+         * @memberof IOCwxSystem
+         */
         GetUserInfo(call: <T>(data: T) => void, node: cc.Node, canvas: cc.Node): void {
             // console.log(node, canvas)
-            let style = getPosition(node, canvas)
-            console.log(style)
+            let style = setPosition(node, canvas)
             let button = wx.createUserInfoButton({
                 type: 'text',
                 text: '',
@@ -79,7 +120,7 @@ namespace Brick {
      * @param {cc.Node} Canvas
      * @returns {{ left: number, top: number, height: number, width: number, }}
      */
-    function getPosition(node: cc.Node, Canvas: cc.Node): { left: number, top: number, height: number, width: number, } {
+    function setPosition(node: cc.Node, Canvas: cc.Node): { left: number, top: number, height: number, width: number, } {
         let style = {
             left: 0,
             top: 0,
@@ -100,7 +141,7 @@ namespace Brick {
             style.left = left_b * sysInfo.screenWidth
             return style
         } catch (err) {
-            console.warn(err)
+            cc.warn(err)
             return style
         }
     }

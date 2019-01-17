@@ -3,6 +3,7 @@ namespace Brick {
     class _System {
 
         private system: IOCSystem;
+
         constructor() {
             if (System instanceof _System) { return System }
         }

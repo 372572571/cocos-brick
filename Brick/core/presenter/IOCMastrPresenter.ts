@@ -2,7 +2,7 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-15 10:17:00 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-15 10:34:10
+ * @Last Modified time: 2019-01-17 10:54:26
  */
 namespace Brick {
     /**
@@ -37,7 +37,6 @@ namespace Brick {
          */
         AddPresenter<T>(presenter: Presenter): T {
             this.init() // 判断存储结构是否存在
-
             for (let index in new Brick.Presenter()) {
                 if (!presenter[index])
                     throw new Error(`${index} not null`)
