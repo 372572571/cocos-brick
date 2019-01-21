@@ -1,8 +1,8 @@
 /*
  * @Author: LiuYongLong 
  * @Date: 2019-01-15 10:17:10 
- * @Last Modified by:   LiuYongLong 
- * @Last Modified time: 2019-01-15 10:17:10 
+ * @Last Modified by: LiuYongLong
+ * @Last Modified time: 2019-01-17 18:40:34
  */
 namespace Brick {
 
@@ -47,7 +47,7 @@ namespace Brick {
          * @returns {T}
          * @memberof Presenter
          */
-        public init<T>(data: any): T {
+        public init(data: any) {
             // throw new Error("Method not implemented.");
             return null
         }
