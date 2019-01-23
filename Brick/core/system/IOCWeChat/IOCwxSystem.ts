@@ -1,8 +1,9 @@
+// import { UserAction } from './UserAction'
 /*
  * @Author: LiuYongLong 
  * @Date: 2019-01-16 16:58:25 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-17 10:41:15
+ * @Last Modified time: 2019-01-23 17:05:40
  */
 namespace Brick {
 
@@ -13,6 +14,14 @@ namespace Brick {
      * @class IOCwxSystem
      */
     export class IOCwxSystem implements IOCSystem {
+
+        /**
+         * 微信用户操作监控
+         *
+         * @type {WXUserAction}
+         * @memberof IOCwxSystem
+         */
+        public UserAction: WXUserAction = new WXUserAction()
 
         /**
          * 设置缓存键值对

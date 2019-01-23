@@ -16,5 +16,18 @@ namespace Brick {
         StorageSet<T>(key: string, val: T)
         // 读取数据接口
         StorageGet<T>(key: string): T
+        // 用户操作监听
+        UserAction?: IUserAction
+    }
+
+    export interface IUserAction {
+        // 初始化
+        init: () => void
+        // 当前用户是否在操作
+        is_the_user_at: boolean
+        // 添加回调
+        call_back: any
+        // 用户离开多久触发回调
+        go_away_time: number
     }
 }

@@ -4,6 +4,10 @@ namespace Brick {
 
         private system: IOCSystem;
 
+        public get UserAction() {
+            return this.system.UserAction
+        }
+
         constructor() {
             if (System instanceof _System) { return System }
         }
