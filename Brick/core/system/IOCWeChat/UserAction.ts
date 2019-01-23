@@ -52,7 +52,7 @@ namespace Brick {
         init() {
             this.TouchMonitor() // 监听用户操作注册
             this.userGoAway() // 用户离开监听
-            console.log('启动监听')
+            // console.log('启动监听')
         }
 
 
@@ -93,10 +93,9 @@ namespace Brick {
                         cc.warn(error)
                     }
                 })
-                console.log('用户离开')
+                // console.log('用户离开')
             }, this.go_away_time)
         }
-
 
     }
 }
