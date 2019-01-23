@@ -3,7 +3,7 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-16 16:58:25 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-23 17:05:40
+ * @Last Modified time: 2019-01-23 19:21:35
  */
 namespace Brick {
 
@@ -58,7 +58,7 @@ namespace Brick {
         }
 
         /**
-         * 获取系统
+         * 获取系统信息
          *
          * @template T
          * @returns {T}
@@ -66,8 +66,12 @@ namespace Brick {
          */
         GetSystemInfo<T>(): T {
             try {
+                // 系统信息
                 let data: any = wx.getSystemInfoSync()
-                return <T>data
+                // 登陆卡片信息
+                let login_info: any = wx.getLaunchOptionsSync()
+                
+                return <any>{ system_info: data, login_info: login_info }
             } catch (error) {
                 cc.warn(error)
                 return null
