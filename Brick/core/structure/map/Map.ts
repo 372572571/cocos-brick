@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2019-01-05 19:18:29 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-14 17:41:13
+ * @Last Modified time: 2019-01-23 15:55:48
  */
 namespace Brick {
     export class Map {
