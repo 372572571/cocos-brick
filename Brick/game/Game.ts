@@ -2,12 +2,12 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-16 16:42:30 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-16 16:42:51
+ * @Last Modified time: 2019-01-25 12:05:13
  */
 namespace Brick {
 
     interface IGame {
-        use<T>(p: Brick.Presenter): T
+        use<T>(p: Brick.Presenter, name: string): T
         getPresenter<T>(name: string): T
     }
 
@@ -50,9 +50,9 @@ namespace Brick {
          * @returns {T}
          * @memberof Game
          */
-        use<T>(p: Brick.Presenter): T {
+        use<T>(p: Brick.Presenter, name: string): T {
             this.init()
-            return this._master_presenter.AddPresenter(p)
+            return this._master_presenter.AddPresenter(p, name)
         }
 
         /**

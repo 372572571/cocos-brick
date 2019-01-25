@@ -2,8 +2,9 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2019-01-05 19:18:29 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-23 15:55:48
+ * @Last Modified time: 2019-01-25 10:57:03
  */
+// / <reference path="../../../Brick.ts" />
 namespace Brick {
     export class Map {
 

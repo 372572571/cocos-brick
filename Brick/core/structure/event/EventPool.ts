@@ -9,7 +9,7 @@ namespace Brick {
     interface IOC_EventPool {
         AddEvent(eventName: string, call: (eventObject?: any) => void, thisArg: any) // 添加事件
         DeleteEvent(eventName: string, thisArg: any): boolean // 删除事件
-        triggerEvent(eventName: string) // 根据名称触发事件
+        triggerEvent(eventName: string, eventObject?: any) // 根据名称触发事件
         TriggerAllEvent(): void // 触发事件池中的所有事件
         clare(): void // 清空所有引用
     }
@@ -65,7 +65,7 @@ namespace Brick {
             return false
         }
 
-        triggerEvent(eventName: string) {
+        triggerEvent(eventName: string, eventObject?: any) {
             let listener = this.pool.get<Array<EventInfo>>(eventName)
             // 判断是否存在事件
             if (listener) {
@@ -74,7 +74,7 @@ namespace Brick {
                     try {
                         if (val.instance) {
                             // 如果实例存在
-                            val.call.apply(val.instance, [val]) // call
+                            val.call.apply(val.instance, [eventObject, val]) // call
                         } else {
                             // 防止溢出,删除无效的例子
                             delete (listener[key])
@@ -123,8 +123,8 @@ namespace Brick {
         DeleteEvent(eventName: string, thisArg: any): boolean {
             return this.pool.DeleteEvent(eventName, thisArg)
         }
-        triggerEvent(eventName: string): boolean {
-            return this.pool.triggerEvent(eventName)
+        triggerEvent(eventName: string, eventObject?: any): boolean {
+            return this.pool.triggerEvent(eventName, eventObject)
         }
         TriggerAllEvent(): void {
             this.pool.TriggerAllEvent()

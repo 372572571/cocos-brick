@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2019-01-05 19:14:24 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-15 10:56:38
+ * @Last Modified time: 2019-01-25 12:08:15
  */
 namespace Brick {
 
@@ -70,14 +70,26 @@ namespace Brick {
      * @param {(Brick.Presenter | string)} p
      * @returns {T}
      */
-    export function use<T>(p: Brick.Presenter | string): T {
+    export function use<T>(p: Brick.Presenter, name: string): T {
         switch (typeof p) {
             case Brick.STRING:
-                return Brick.GAME.getPresenter(<string>p)
+                return null
             case Brick.OBJECT:
-                return Brick.GAME.use(<Brick.Presenter>p)
+                return Brick.GAME.use(<Brick.Presenter>p, name)
             default:
                 return null
         }
+    }
+
+    /**
+     * 返回注册过的控制者
+     *
+     * @export
+     * @template T
+     * @param {string} name
+     * @returns {T}
+     */
+    export function GetPresenter<T>(name: string): T {
+        return Brick.GAME.getPresenter(name)
     }
 }

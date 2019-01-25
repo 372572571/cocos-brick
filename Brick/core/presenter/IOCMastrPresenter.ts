@@ -2,7 +2,7 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-15 10:17:00 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-17 10:54:26
+ * @Last Modified time: 2019-01-25 12:04:54
  */
 namespace Brick {
     /**
@@ -35,18 +35,18 @@ namespace Brick {
          * @returns {T}
          * @memberof _Presenter
          */
-        AddPresenter<T>(presenter: Presenter): T {
+        AddPresenter<T>(presenter: Presenter, name: string): T {
             this.init() // 判断存储结构是否存在
             for (let index in new Brick.Presenter()) {
                 if (!presenter[index])
                     throw new Error(`${index} not null`)
             }
-            if (this.map.get(presenter.constructor.name)) {
+            if (this.map.get(name)) {
                 // 如果已经存在这个类型的控制者
-                return this.map.get(presenter.constructor.name)
+                return this.map.get(name)
             } else {
                 // 如果不存在这个类型的控制者
-                this.map.set(presenter.constructor.name, presenter)
+                this.map.set(name, presenter)
                 return this.map.get(presenter.constructor.name)
             }
 
