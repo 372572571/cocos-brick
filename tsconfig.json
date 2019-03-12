@@ -8,7 +8,7 @@
         ],
         "target": "es5",
         "experimentalDecorators": true,
-        "outFile": "../assets/Script/GameScript/Brick/brickscript.js",
+        "outFile": "../build/CoCosBrick.js",
         "skipLibCheck": true,
     },
     "exclude": [

@@ -2,7 +2,7 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-10 14:35:18 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-10 15:36:55
+ * @Last Modified time: 2019-03-12 15:01:15
  */
 namespace Brick {
 
@@ -199,6 +199,33 @@ namespace Brick {
          */
         public post<T>(url: string, params?: {}): Promise<T> {
             return this.http.post(url, params)
+        }
+
+        /**
+         * 尝试从服务器中获取 ArrayBuffer 类型的数据
+         *
+         * @static
+         * @param {string} url
+         * @param {(data: ArrayBuffer) => void} call
+         * @memberof Http
+         */
+        public static GetFileByArrayBuffer(url: string, call: (data: ArrayBuffer) => void) {
+            let xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = () => {
+                cc.log("xhr.readyState  " + xhr.readyState);
+                cc.log("xhr.status  " + xhr.status);
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        xhr.responseType = 'arraybuffer';
+                        call && call(xhr.response);
+                    } else {
+                        call && call(xhr.response);
+                    }
+                }
+            }
+            xhr.open("GET", url, true);
+            xhr.send();
         }
     }
 }

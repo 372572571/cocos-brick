@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng 
  * @Date: 2019-01-05 19:14:24 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-25 12:08:15
+ * @Last Modified time: 2019-03-12 14:50:55
  */
 namespace Brick {
 
@@ -72,8 +72,6 @@ namespace Brick {
      */
     export function use<T>(p: Brick.Presenter, name: string): T {
         switch (typeof p) {
-            case Brick.STRING:
-                return null
             case Brick.OBJECT:
                 return Brick.GAME.use(<Brick.Presenter>p, name)
             default:
