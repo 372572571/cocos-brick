@@ -12,6 +12,7 @@ namespace Brick {
         triggerEvent(eventName: string, eventObject?: any) // 根据名称触发事件
         TriggerAllEvent(): void // 触发事件池中的所有事件
         clare(): void // 清空所有引用
+        AddEmptyEvent(key: string): void // 空事件注册
     }
 
     /**
@@ -32,7 +33,15 @@ namespace Brick {
      * @implements {IOC_EventPool}
      */
     class EventPoolRely implements IOC_EventPool {
+
         private pool: Brick.Map = new Brick.Map()
+
+        AddEmptyEvent(key: string): void {
+            if (!this.pool.get(key)) {
+                // 如果不存在这个事件，创建这个事件
+                this.pool.set(key, [])
+            }
+        }
 
         AddEvent(eventName: string, call: (eventObject?: any) => void, thisArg: any): void {
             try {
@@ -113,22 +122,71 @@ namespace Brick {
      * @implements {IOC_EventPool}
      */
     export class EventPool implements IOC_EventPool {
+
         private pool: IOC_EventPool = null
         constructor() {
             this.pool = new EventPoolRely()
         }
-        AddEvent(eventName: string, call: (eventObject?: any) => void, thisArg: any) {
+        /**
+         * 添加事件
+         *
+         * @param {string} eventName
+         * @param {(eventObject?: any) => void} call
+         * @param {*} thisArg
+         * @memberof EventPool
+         */
+        AddEvent(eventName: string, call: <T>(eventObject?: T) => void, thisArg: any) {
             this.pool.AddEvent(eventName, call, thisArg)
         }
+
+        /**
+         * 注册空事件
+         *
+         * @param {string} key
+         * @memberof EventPool
+         */
+        AddEmptyEvent(key: string): void {
+            this.pool.AddEmptyEvent(key)
+        }
+
+        /**
+         * 删除事件
+         *
+         * @param {string} eventName
+         * @param {*} thisArg
+         * @returns {boolean}
+         * @memberof EventPool
+         */
         DeleteEvent(eventName: string, thisArg: any): boolean {
             return this.pool.DeleteEvent(eventName, thisArg)
         }
+
+        /**
+         * 触发事件
+         *
+         * @param {string} eventName
+         * @param {*} [eventObject]
+         * @returns {boolean}
+         * @memberof EventPool
+         */
         triggerEvent(eventName: string, eventObject?: any): boolean {
             return this.pool.triggerEvent(eventName, eventObject)
         }
+
+        /**
+         * 触发所有事件
+         *
+         * @memberof EventPool
+         */
         TriggerAllEvent(): void {
             this.pool.TriggerAllEvent()
         }
+
+        /**
+         * 清空事件池
+         *
+         * @memberof EventPool
+         */
         clare(): void {
             this.pool.clare()
         }
