@@ -25,11 +25,25 @@ namespace Brick {
      */
     export class Socket {
 
+        // 全局唯一
+        public static SOCKET: Socket = null
+
+        // ws
         private ws: WebSocket = null
 
+        // 事件池
         private eventPool: Brick.EventPool = null
 
-        Init(ws_path: string) {
+        public static Init(ws_path?: string) {
+            if (!ws_path || Socket.SOCKET) {
+                return Socket.SOCKET
+            }
+
+            Socket.SOCKET = new Socket()
+            Socket.SOCKET.init(ws_path)
+        }
+
+        private init(ws_path: string) {
 
             this.ws = new WebSocket(ws_path)            // 创建链接
 
@@ -44,6 +58,12 @@ namespace Brick {
             this.initEventPoll()                        // 事件池注册
         }
 
+        /**
+         * 初始化事件池
+         *
+         * @private
+         * @memberof Socket
+         */
         private initEventPoll() {
             this.eventPool = new Brick.EventPool()      // 事件池
             // 基础事件注册
