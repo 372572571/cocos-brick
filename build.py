@@ -16,6 +16,7 @@ class Build:
             "cp -f "+os.getcwd()+"/build/CoCosBrick.js " + self.MovePath+"assets/Script/CoCosBrick.js", shell=True)
         res1.wait()
         print("build.js文件拷贝完成。")
+        self.SetSeeting()
         return
 
     # 拷贝源ts文件夹到项目中
@@ -26,6 +27,15 @@ class Build:
                                "/Brick "+self.MovePath, shell=True)
         res.wait()
         print("源文件拷贝完成。")
+        return
+        
+    # 设置js文件尾部声明全局 window.Brick = Brick
+    def SetSeeting(self):
+        f = open(self.MovePath+"assets/Script/CoCosBrick.js",
+                 "a", encoding="utf-8")
+        f.write("\n")
+        f.write("window.Brick = Brick;\n")
+        f.close()
         return
 
 
