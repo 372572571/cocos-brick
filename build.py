@@ -6,7 +6,7 @@ import subprocess
 
 class Build:
     def __init__(self):
-        self.MovePath = "/Users/liuyonglong/src/CoDing/PokerTest/"
+        self.MovePath = "/Users/liuyonglong/src/cocos/QP/"
 
     def TscBuild(self):                             # 编译build脚本
         res = subprocess.Popen("tsc", shell=True)
@@ -28,7 +28,7 @@ class Build:
         res.wait()
         print("源文件拷贝完成。")
         return
-        
+
     # 设置js文件尾部声明全局 window.Brick = Brick
     def SetSeeting(self):
         f = open(self.MovePath+"assets/Script/CoCosBrick.js",

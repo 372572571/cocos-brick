@@ -2,7 +2,7 @@
  * @Author: LiuYongLong 
  * @Date: 2019-01-16 16:42:30 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-25 12:05:13
+ * @Last Modified time: 2019-04-08 17:36:32
  */
 namespace Brick {
 
@@ -30,6 +30,14 @@ namespace Brick {
          * @memberof System
          */
         private _master_presenter: Brick.IMasterPresenter = null
+
+        /**
+         * Http
+         *
+         * @type {Http}
+         * @memberof _Game
+         */
+        public Http: Http = null
 
         /**
          * 手动初始化

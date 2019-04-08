@@ -1055,7 +1055,7 @@ var Brick;
  * @Author: LiuYongLong
  * @Date: 2019-03-12 15:26:50
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-03-12 18:01:58
+ * @Last Modified time: 2019-04-08 17:01:52
  */
 var Brick;
 (function (Brick) {
@@ -1079,17 +1079,6 @@ var Brick;
             // 事件池
             this.eventPool = null;
         }
-        // /**
-        //  *Creates an instance of Socket.
-        //  * @param {string} ws_path
-        //  * @memberof Socket
-        //  */
-        // constructor(ws_path: string) {
-        //     if (Socket.SOCKET) {
-        //         return Socket.SOCKET
-        //     }
-        //     return Socket.Init(ws_path)
-        // }
         /**
          * 初始化
          *
@@ -1173,14 +1162,14 @@ var Brick;
          * @memberof Socket
          */
         Socket.prototype.onMessage = function (event) {
-            console.log(event.data);
+            // console.log(event.data)
             var reader = new FileReader();
             reader.onload = function (event) {
-                var content = reader.result; //内容就在这里
-                console.log(content);
+                var content = reader.result;
+                console.log('收到信息', content);
+                // Socket.SOCKET.eventPool.triggerEvent(WebSocketEventType.MESSAGE, content)
             };
             reader.readAsText(event.data);
-            Socket.SOCKET.eventPool.triggerEvent(WebSocketEventType.MESSAGE, event);
         };
         /**
          * 发送消息
@@ -2042,7 +2031,7 @@ var Brick;
  * @Author: LiuYongLong
  * @Date: 2019-01-16 16:42:30
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-01-25 12:05:13
+ * @Last Modified time: 2019-04-08 17:36:32
  */
 var Brick;
 (function (Brick) {
@@ -2061,6 +2050,13 @@ var Brick;
              * @memberof System
              */
             this._master_presenter = null;
+            /**
+             * Http
+             *
+             * @type {Http}
+             * @memberof _Game
+             */
+            this.Http = null;
             if (Brick.GAME instanceof _Game) {
                 return Brick.GAME;
             }
