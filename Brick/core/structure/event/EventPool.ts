@@ -9,7 +9,7 @@ namespace Brick {
     interface IOC_EventPool {
         AddEvent(eventName: string, call: (eventObject?: any) => void, thisArg: any) // 添加事件
         DeleteEvent(eventName: string, thisArg: any): boolean // 删除事件
-        triggerEvent(eventName: string, eventObject?: any) // 根据名称触发事件
+        triggerEvent(eventName: string, eventObject?: any): void // 根据名称触发事件
         TriggerAllEvent(): void // 触发事件池中的所有事件
         clare(): void // 清空所有引用
         AddEmptyEvent(key: string): void // 空事件注册
@@ -74,10 +74,10 @@ namespace Brick {
             return false
         }
 
-        triggerEvent(eventName: string, eventObject?: any) {
+        triggerEvent(eventName: string, eventObject?: any): void {
             let listener = this.pool.get<Array<EventInfo>>(eventName)
             // 判断是否存在事件
-            if (listener) {
+            if (listener && listener.length > 0) {
                 // 实现下的所有注册事件触发
                 listener.forEach((val, key) => {
                     try {
@@ -169,8 +169,8 @@ namespace Brick {
          * @returns {boolean}
          * @memberof EventPool
          */
-        triggerEvent(eventName: string, eventObject?: any): boolean {
-            return this.pool.triggerEvent(eventName, eventObject)
+        triggerEvent(eventName: string, eventObject?: any): void {
+            this.pool.triggerEvent(eventName, eventObject)
         }
 
         /**

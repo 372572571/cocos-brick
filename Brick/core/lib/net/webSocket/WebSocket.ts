@@ -2,7 +2,7 @@
  * @Author: LiuYongLong 
  * @Date: 2019-03-12 15:26:50 
  * @Last Modified by: LiuYongLong
- * @Last Modified time: 2019-03-12 18:01:58
+ * @Last Modified time: 2019-04-08 17:01:52
  */
 namespace Brick {
 
@@ -34,28 +34,43 @@ namespace Brick {
         // 事件池
         private eventPool: Brick.EventPool = null
 
-        public static Init(ws_path?: string) {
+        /**
+         * 初始化
+         *
+         * @static
+         * @param {string} [ws_path]
+         * @returns {Socket}
+         * @memberof Socket
+         */
+        public static Init(ws_path?: string): Socket {
             if (!ws_path || Socket.SOCKET) {
                 return Socket.SOCKET
             }
-
             Socket.SOCKET = new Socket()
             Socket.SOCKET.init(ws_path)
+            return Socket.SOCKET
         }
 
+        /**
+         * 初始化细节
+         *
+         * @private
+         * @param {string} ws_path
+         * @memberof Socket
+         */
         private init(ws_path: string) {
 
-            this.ws = new WebSocket(ws_path)            // 创建链接
+            Socket.SOCKET.ws = new WebSocket(ws_path)            // 创建链接
 
-            this.ws.onopen = this.onOpen                // 打开链接回调
+            Socket.SOCKET.ws.onopen = this.onOpen                // 打开链接回调
 
-            this.ws.onclose = this.onClose              // 关闭链接回调
+            Socket.SOCKET.ws.onclose = this.onClose              // 关闭链接回调
 
-            this.ws.onerror = this.onError              // 错误回调
+            Socket.SOCKET.ws.onerror = this.onError              // 错误回调
 
-            this.ws.onmessage = this.onMessage          // 收到信息的回调
+            Socket.SOCKET.ws.onmessage = this.onMessage          // 收到信息的回调
 
-            this.initEventPoll()                        // 事件池注册
+            Socket.SOCKET.initEventPoll()                        // 事件池注册
         }
 
         /**
@@ -91,7 +106,8 @@ namespace Brick {
          * @memberof Socket
          */
         private onClose(event: any) {
-            this.eventPool.triggerEvent(WebSocketEventType.CLOSE, event)
+            // console.log(this.eventPool)
+            Socket.SOCKET.eventPool.triggerEvent(WebSocketEventType.CLOSE, event)
         }
 
         /**
@@ -102,7 +118,7 @@ namespace Brick {
          * @memberof Socket
          */
         private onError(event: any) {
-            this.eventPool.triggerEvent(WebSocketEventType.ERROR, event)
+            Socket.SOCKET.eventPool.triggerEvent(WebSocketEventType.ERROR, event)
         }
 
         /**
@@ -113,7 +129,14 @@ namespace Brick {
          * @memberof Socket
          */
         private onMessage(event: any) {
-            this.eventPool.triggerEvent(WebSocketEventType.MESSAGE, event)
+            // console.log(event.data)
+            let reader = new FileReader();
+            reader.onload = (event) => {
+                let content = reader.result;
+                console.log('收到信息', content)
+                // Socket.SOCKET.eventPool.triggerEvent(WebSocketEventType.MESSAGE, content)
+            };
+            reader.readAsText(event.data);
         }
 
         /**
@@ -123,7 +146,9 @@ namespace Brick {
          * @memberof Socket
          */
         public Send(data: any) {
-            this.ws.send(data)
+            if (Socket.SOCKET.ws.readyState === 1) {
+                Socket.SOCKET.ws.send(data)
+            }
         }
 
         /**
@@ -134,7 +159,7 @@ namespace Brick {
          * @memberof Socket
          */
         public get Url(): string {
-            return this.ws.url
+            return Socket.SOCKET.ws.url
         }
     }
 }

@@ -1079,20 +1079,47 @@ var Brick;
             // 事件池
             this.eventPool = null;
         }
+        // /**
+        //  *Creates an instance of Socket.
+        //  * @param {string} ws_path
+        //  * @memberof Socket
+        //  */
+        // constructor(ws_path: string) {
+        //     if (Socket.SOCKET) {
+        //         return Socket.SOCKET
+        //     }
+        //     return Socket.Init(ws_path)
+        // }
+        /**
+         * 初始化
+         *
+         * @static
+         * @param {string} [ws_path]
+         * @returns {Socket}
+         * @memberof Socket
+         */
         Socket.Init = function (ws_path) {
             if (!ws_path || Socket.SOCKET) {
                 return Socket.SOCKET;
             }
             Socket.SOCKET = new Socket();
             Socket.SOCKET.init(ws_path);
+            return Socket.SOCKET;
         };
+        /**
+         * 初始化细节
+         *
+         * @private
+         * @param {string} ws_path
+         * @memberof Socket
+         */
         Socket.prototype.init = function (ws_path) {
-            this.ws = new WebSocket(ws_path); // 创建链接
-            this.ws.onopen = this.onOpen; // 打开链接回调
-            this.ws.onclose = this.onClose; // 关闭链接回调
-            this.ws.onerror = this.onError; // 错误回调
-            this.ws.onmessage = this.onMessage; // 收到信息的回调
-            this.initEventPoll(); // 事件池注册
+            Socket.SOCKET.ws = new WebSocket(ws_path); // 创建链接
+            Socket.SOCKET.ws.onopen = this.onOpen; // 打开链接回调
+            Socket.SOCKET.ws.onclose = this.onClose; // 关闭链接回调
+            Socket.SOCKET.ws.onerror = this.onError; // 错误回调
+            Socket.SOCKET.ws.onmessage = this.onMessage; // 收到信息的回调
+            Socket.SOCKET.initEventPoll(); // 事件池注册
         };
         /**
          * 初始化事件池
@@ -1125,7 +1152,8 @@ var Brick;
          * @memberof Socket
          */
         Socket.prototype.onClose = function (event) {
-            this.eventPool.triggerEvent(WebSocketEventType.CLOSE, event);
+            // console.log(this.eventPool)
+            Socket.SOCKET.eventPool.triggerEvent(WebSocketEventType.CLOSE, event);
         };
         /**
          * 错误信息回调
@@ -1135,7 +1163,7 @@ var Brick;
          * @memberof Socket
          */
         Socket.prototype.onError = function (event) {
-            this.eventPool.triggerEvent(WebSocketEventType.ERROR, event);
+            Socket.SOCKET.eventPool.triggerEvent(WebSocketEventType.ERROR, event);
         };
         /**
          * 收到信息
@@ -1145,7 +1173,14 @@ var Brick;
          * @memberof Socket
          */
         Socket.prototype.onMessage = function (event) {
-            this.eventPool.triggerEvent(WebSocketEventType.MESSAGE, event);
+            console.log(event.data);
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var content = reader.result; //内容就在这里
+                console.log(content);
+            };
+            reader.readAsText(event.data);
+            Socket.SOCKET.eventPool.triggerEvent(WebSocketEventType.MESSAGE, event);
         };
         /**
          * 发送消息
@@ -1154,7 +1189,9 @@ var Brick;
          * @memberof Socket
          */
         Socket.prototype.Send = function (data) {
-            this.ws.send(data);
+            if (Socket.SOCKET.ws.readyState === 1) {
+                Socket.SOCKET.ws.send(data);
+            }
         };
         Object.defineProperty(Socket.prototype, "Url", {
             /**
@@ -1165,7 +1202,7 @@ var Brick;
              * @memberof Socket
              */
             get: function () {
-                return this.ws.url;
+                return Socket.SOCKET.ws.url;
             },
             enumerable: true,
             configurable: true
@@ -1442,7 +1479,7 @@ var Brick;
         EventPoolRely.prototype.triggerEvent = function (eventName, eventObject) {
             var listener = this.pool.get(eventName);
             // 判断是否存在事件
-            if (listener) {
+            if (listener && listener.length > 0) {
                 // 实现下的所有注册事件触发
                 listener.forEach(function (val, key) {
                     try {
@@ -1529,7 +1566,7 @@ var Brick;
          * @memberof EventPool
          */
         EventPool.prototype.triggerEvent = function (eventName, eventObject) {
-            return this.pool.triggerEvent(eventName, eventObject);
+            this.pool.triggerEvent(eventName, eventObject);
         };
         /**
          * 触发所有事件
